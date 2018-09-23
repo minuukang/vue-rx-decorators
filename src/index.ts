@@ -36,9 +36,18 @@ export function ObservableMethod(): VueDecorator {
 
 export function Subscription(): VueDecorator {
   return createDecorator((options: any, key) => {
-    const method = options.methods[key];
-    delete options.methods[key];
-    createVueSubscriptions(options)[key] = method;
+    let method: Function;
+    if (key in options.methods) {
+      method = options.methods[key];
+      delete options.methods[key];
+    } else if (key in options.computed!) {
+      method = options.computed[key].get;
+      delete options.computed[key];
+    } else {
+      throw new Error("vue-rx-decorators: @Subscription method will be use on method or computed.");
+    }
+    const subscriptions = createVueSubscriptions(options)
+    subscriptions[key] = method;
   });
 }
 
