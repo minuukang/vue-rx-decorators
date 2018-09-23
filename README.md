@@ -48,7 +48,7 @@ export default class App extends Vue {
 </script> 
 ```
 
-## Example (use `obserableMethods`)
+## Example (use `observableMethods`)
 ```vue
 <template>
   <div>
