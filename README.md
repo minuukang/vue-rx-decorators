@@ -37,7 +37,7 @@ export default class App extends Vue {
   @DOMStream()
   private counter$: Observable;
   @Subscription()
-  protected countValue () {
+  protected get countValue () {
     return this.counter$.pipe(
       map(() => 1),
       startWith(0),
@@ -70,7 +70,7 @@ export default class App extends Vue {
   @ObservableMethod()
   private counter: ObservableMethod;
   @Subscription()
-  protected countValue () {
+  protected get countValue () {
     return this.counter.pipe(
       startWith(0),
       scan((result, value) => result + value)
