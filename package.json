@@ -1,0 +1,24 @@
+{
+  "name": "vue-rx-decorator",
+  "version": "0.0.1",
+  "description": "vue-rx typescript decorator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MinuKang/vue-rx-decorator.git"
+  },
+  "keywords": [
+    "vuejs",
+    "rxjs",
+    "vue-rx"
+  ],
+  "author": "Minwoo Kang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MinuKang/vue-rx-decorator/issues"
+  },
+  "homepage": "https://github.com/MinuKang/vue-rx-decorator#readme"
+}
