@@ -17,7 +17,7 @@
     "vue-rx"
   ],
   "author": "Minwoo Kang",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/MinuKang/vue-rx-decorators/issues"
   },
