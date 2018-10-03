@@ -37,10 +37,10 @@ export function ObservableMethod(): VueDecorator {
 export function Subscription(): VueDecorator {
   return createDecorator((options: any, key) => {
     let method: Function;
-    if (key in options.methods) {
+    if (options.methods && key in options.methods) {
       method = options.methods[key];
       delete options.methods[key];
-    } else if (key in options.computed!) {
+    } else if (options.computed! && key in options.computed!) {
       method = options.computed[key].get;
       delete options.computed[key];
     } else {
