@@ -28,11 +28,11 @@ exports.ObservableMethod = ObservableMethod;
 function Subscription() {
     return vue_class_component_1.createDecorator((options, key) => {
         let method;
-        if (key in options.methods) {
+        if (options.methods && key in options.methods) {
             method = options.methods[key];
             delete options.methods[key];
         }
-        else if (key in options.computed) {
+        else if (options.computed && key in options.computed) {
             method = options.computed[key].get;
             delete options.computed[key];
         }
