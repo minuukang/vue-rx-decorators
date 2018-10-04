@@ -34,21 +34,23 @@ export function ObservableMethod(): VueDecorator {
   });
 }
 
-export function Subscription(): VueDecorator {
+export function Subscription<T>(callback?: () => Observable<T>): VueDecorator {
   return createDecorator((options: any, key) => {
     let method: Function;
-    if (options.methods && key in options.methods) {
-      method = options.methods[key];
-      delete options.methods[key];
-    } else if (options.computed! && key in options.computed!) {
-      method = options.computed[key].get;
-      delete options.computed[key];
+    if (callback) {
+      method = callback;
     } else {
-      throw new Error("vue-rx-decorators: @Subscription method will be use on method or computed.");
+      if (options.methods && key in options.methods) {
+        method = options.methods[key];
+        delete options.methods[key];
+      } else if (options.computed! && key in options.computed!) {
+        method = options.computed[key].get;
+        delete options.computed[key];
+      } else {
+        throw new Error("vue-rx-decorators: @Subscription method will be use on method or computed.");
+      }
     }
     const subscriptions = createVueSubscriptions(options)
     subscriptions[key] = method;
   });
 }
-
-

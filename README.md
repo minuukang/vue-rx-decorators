@@ -15,6 +15,51 @@ $ npm install --save vue-rx-decorators
 $ yarn add vue-rx-decorators
 ```
 
+## Example (use `subscription`)
+```vue
+<template>
+  <div>
+    <p>counter: {{ countValue }}</p>
+    <p><button v-stream:click="counter$">Add count</button></p>
+  </div>
+</template>
+<script lang="ts">
+import Vue from 'vue'
+import Component from 'vue-class-component'
+import { Observable } from 'rxjs'
+import { startWith, map, scan } from 'rxjs/operators'
+import { DOMStream, Subscription } from 'vue-rx-decorators'
+
+@Component({
+  name: 'app'
+})
+export default class App extends Vue {
+  @DOMStream()
+  private counter$: Observable;
+  // use property to use type in your code
+  // !doesnt use arrow function (() => {}) in this callback!
+  @Subscription(function () {
+    return this.counter$.pipe(
+      map(() => 1),
+      startWith(0),
+      scan((result, value) => result + value)
+    )
+  })
+  protected countValue: number
+  // old version (0.0.4 < version) use method or computed.
+  // you can't use type in your code
+  @Subscription()
+  protected get countValueOld () {
+    return this.counter$.pipe(
+      map(() => 1),
+      startWith(0),
+      scan((result, value) => result + value)
+    )
+  }
+}
+</script>
+```
+
 ## Example (use `domstreams`)
 ```vue
 <template>
@@ -36,14 +81,14 @@ import { DOMStream, Subscription } from 'vue-rx-decorators'
 export default class App extends Vue {
   @DOMStream()
   private counter$: Observable;
-  @Subscription()
-  protected get countValue () {
+  @Subscription(function () {
     return this.counter$.pipe(
       map(() => 1),
       startWith(0),
       scan((result, value) => result + value)
     )
-  }
+  })
+  protected countValue: number
 }
 </script> 
 ```
@@ -69,13 +114,14 @@ import { Subscription, ObservableMethod } from 'vue-rx-decorators'
 export default class App extends Vue {
   @ObservableMethod()
   private counter: ObservableMethod;
-  @Subscription()
-  protected get countValue () {
-    return this.counter.pipe(
+  @Subscription(function () {
+    return this.counter$.pipe(
+      map(() => 1),
       startWith(0),
       scan((result, value) => result + value)
     )
-  }
+  })
+  protected countValue: number
   addCount () {
     this.counter(1)
   }
