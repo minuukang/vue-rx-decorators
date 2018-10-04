@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 export interface ObservableMethod extends Observable<any> {
     (...args: any[]): any;
 }
-export declare type DOMStreamObserable<T extends Event> = Observable<{
+export declare type DOMStreamObservable<T extends Event> = Observable<{
     event: T;
     data: any;
 }>;
