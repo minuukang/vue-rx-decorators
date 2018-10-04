@@ -5,4 +5,4 @@ export interface ObservableMethod extends Observable<any> {
 }
 export declare function DOMStream(): VueDecorator;
 export declare function ObservableMethod(): VueDecorator;
-export declare function Subscription(): VueDecorator;
+export declare function Subscription<T>(callback?: () => Observable<T>): VueDecorator;
