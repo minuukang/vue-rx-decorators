@@ -28,14 +28,14 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import { Observable } from 'rxjs'
 import { startWith, map, scan } from 'rxjs/operators'
-import { DOMStream, Subscription } from 'vue-rx-decorators'
+import { DOMStream, Subscription, DOMStreamObservable } from 'vue-rx-decorators'
 
 @Component({
   name: 'app'
 })
 export default class App extends Vue {
   @DOMStream()
-  private counter$: Observable;
+  private counter$!: DOMStreamObservable<MouseEvent>;
   // use property to use type in your code
   // !doesnt use arrow function (() => {}) in this callback!
   @Subscription(function () {
@@ -80,7 +80,7 @@ import { DOMStream, Subscription } from 'vue-rx-decorators'
 })
 export default class App extends Vue {
   @DOMStream()
-  private counter$: Observable;
+  private counter$: DOMStreamObservable<MouseEvent>;
   @Subscription(function () {
     return this.counter$.pipe(
       map(() => 1),
