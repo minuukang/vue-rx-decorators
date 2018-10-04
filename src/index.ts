@@ -6,7 +6,7 @@ export interface ObservableMethod extends Observable<any> {
   (...args: any[]): any;
 }
 
-export type DOMStreamObserable<T extends Event> = Observable<{ event: T, data: any }>
+export type DOMStreamObservable<T extends Event> = Observable<{ event: T, data: any }>
 
 export function DOMStream(): VueDecorator {
   return createDecorator((options: any, key) => {
